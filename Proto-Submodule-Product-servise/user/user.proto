@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package store;
+
+service Storeservice {
+ rpc CreateUser (User) returns (User);
+ rpc CheckField (CheckFieldRequest) returns (CheckFieldResponse);
+}
+
+message CheckFieldRequest {
+  string key= 1;
+  string value=2;
+}
+message CheckFieldResponse {
+  bool exists=1;
+}
+
+message User {
+  string uuid =1;
+  string name = 2;
+  string email=3;
+  string phone= 4;
+  string password=5;
+}

@@ -1,0 +1,95 @@
+syntax ="proto3";
+
+package product;
+
+service ProductService{
+  rpc CreateProduct(ProductFullInfo) returns(ProductFullInfoResponse);
+  rpc Create(ProductRequest)returns (Product);
+  rpc CreateType(TypeRequest)returns (Type);
+  rpc CreateCategory(CategoryRequest)returns (Category);
+  rpc Update (Product) returns (Product);
+  rpc DeleteProduct (GetProductId) returns (Empty);
+  rpc GetProduct (GetProductId) returns (ProductResponse);
+  rpc GetProducts (Empty) returns (Products);
+}
+
+message ProductFullInfoResponse {
+  int64 id=1;
+  string name = 2;
+  int64 price = 3;
+  int64 categoryid= 4;
+  int64 typeid= 5;
+  repeated Store stores= 6;
+}
+
+message ProductFullInfo {
+  string name = 1;
+  int64 price = 2;
+  int64 categoryid= 3;
+  int64 typeid= 4;
+  repeated Store stores= 5;
+}
+message  Store {
+  string name= 1;
+  repeated Address addresses=2;
+}
+message StoreResp {
+  int64 id=1;
+  string name= 2;
+  repeated Address addresses=3;
+}
+message AddressResp {
+  int64 id=1;
+  string district = 2;
+  string street= 3;
+}
+
+message Address {
+  string district = 1;
+  string street= 2;
+}
+
+message Products {
+  repeated ProductResponse products= 1;
+}
+message ProductResponse {
+  int64 id =1;
+  string name = 2;
+  int64 price=3;
+  string category = 4;
+  string type =5;
+}
+
+message Empty {}
+
+message GetProductId {
+  int64 id = 1;
+}
+message TypeRequest{
+  string name= 1;
+}
+message Type{
+  int64 id = 1;
+  string name= 2;
+}
+message CategoryRequest{
+  string name= 1;
+}
+message Category{
+  int64 id = 1;
+  string name= 2;
+}
+message ProductRequest{
+  string name = 1;
+  int64 price=2;
+  int64 categoryid = 3;
+  int64 typeid = 4;
+}
+
+message Product{
+  int64 id =1;
+  string name = 2;
+  int64 price=3;
+  int64 categoryid = 4;
+  int64 typeid = 5;
+}
