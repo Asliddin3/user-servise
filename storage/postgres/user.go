@@ -38,9 +38,10 @@ func (r *userRepo) CheckField(req *pb.CheckFieldRequest) (*pb.CheckFieldResponse
 func (r *userRepo) CreateUser(req *pb.User) (*pb.User,error){
 	userResp:=pb.User{}
 	err:=r.db.QueryRow(`
-	insert into users(uuid,name,email,password)
-	values($1,$2,$3,$4) returning uuid,name,email,password`,req.Uuid,req.Name,req.Email,req.Password).Scan(
+	insert into users(name,username,email,password)
+	values($1,$2,$3,$4) returning name,username,email,password`,req.Uuid,req.Name,req.Email,req.Password).Scan(
 		&userResp.Uuid,
+		&userResp.Username,
 		&userResp.Name,
 		&userResp.Email,
 		&userResp.Password,
